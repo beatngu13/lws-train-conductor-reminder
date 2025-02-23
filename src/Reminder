@@ -1,0 +1,39 @@
+#!/usr/bin/env java --source 23
+
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.List;
+
+public class Reminder {
+
+	private static final List<String> OFFICERS = List.of(
+			"@nervengift94",
+			"@eisenhans87",
+			"@pancho6575",
+			"@Chrille79 (nicht in Discord)",
+			"@carisma69",
+			"@beatngu13",
+			"@xxmakis92xx",
+			"@.hofnarr"
+	);
+
+	public static void main(String[] args) {
+		String todaysConductor = getTodaysConductor();
+		System.out.println("Today's conductor is:");
+		System.out.println(todaysConductor);
+		postOnDiscord(todaysConductor);
+	}
+
+	private static String getTodaysConductor() {
+		ZoneId europeBerlin = ZoneId.of("Europe/Berlin");
+		int dayOfYear = LocalDateTime.now(europeBerlin).getDayOfYear();
+		int offset = 1;
+		int index = (dayOfYear - offset) % OFFICERS.size();
+		return OFFICERS.get(index);
+	}
+
+	private static void postOnDiscord(String todaysConductor) {
+		// TODO
+	}
+
+}

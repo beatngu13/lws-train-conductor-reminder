@@ -23,7 +23,6 @@ jobs:
         with:
           distribution: temurin
           java-version: 23
-          cache: maven
 
       - name: Determine train conductor
         run: |

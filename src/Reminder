@@ -1,4 +1,4 @@
-#!/usr/bin/env java --source 23
+#!/usr/bin/env -S java --source 23
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;

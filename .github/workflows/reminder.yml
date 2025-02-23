@@ -1,3 +1,5 @@
+name: Remind today's train conductor
+
 on:
   workflow_dispatch:
     inputs:

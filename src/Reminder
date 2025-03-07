@@ -15,12 +15,17 @@ import java.util.List;
 public class Reminder {
 
 	private record Officer(String userId, String username) {
+
+		public boolean hasDiscordAccount() {
+			return userId != null;
+		}
+
 	}
 
 	private static final List<Officer> OFFICERS = List.of(
 			new Officer("413827079688421376", "Nervengift"),
 			new Officer("926965967618211950", "PopeofNope"),
-			new Officer("Chrille79", "Chrille79 (nicht in Discord)"),
+			new Officer(null, "Chrille79"),
 			new Officer("979853290139431003", "Carisma69"),
 			new Officer("284646412233211906", "beatngu13"),
 			new Officer("1279372492393156641", "DaMaddin"),
@@ -43,7 +48,7 @@ public class Reminder {
 		if (dryRun) {
 			return;
 		}
-		postOnDiscord(todaysConductor.userId());
+		postOnDiscord(todaysConductor);
 	}
 
 	private static int getTodaysConductorIndex() {
@@ -55,9 +60,12 @@ public class Reminder {
 		return (year + dayOfYear - offset) % OFFICERS.size();
 	}
 
-	private static void postOnDiscord(String todaysConductor) {
+	private static void postOnDiscord(Officer todaysConductor) {
 		try (HttpClient client = HttpClient.newHttpClient()) {
-			String requestBody = "{\"content\": \"Today's train conductor is: <@" + todaysConductor + ">\"}";
+			String userString = todaysConductor.hasDiscordAccount()
+					? "<@" + todaysConductor.userId() + ">"
+					: todaysConductor.username() + " (has no Discord account)";
+			String requestBody = "{\"content\": \"Today's train conductor is: " + userString + "\"}";
 			HttpRequest request = HttpRequest.newBuilder()
 					.uri(URI.create(CHANNEL_URI))
 					.timeout(Duration.ofSeconds(10))

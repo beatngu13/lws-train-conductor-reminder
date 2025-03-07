@@ -1,41 +1,75 @@
 #!/usr/bin/env -S java --source 23
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpRequest.BodyPublishers;
+import java.net.http.HttpResponse;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
 
 public class Reminder {
 
-	private static final List<String> OFFICERS = List.of(
-			"@nervengift94",
-			"@eisenhans87",
-			"@dapp6367",
-			"@paulifromdahood",
-			"@dev2highhh6513",
-			"@Chrille79 (nicht in Discord)",
-			"@carisma69",
-			"@beatngu13",
-			"@xxmakis92xx",
-			"@.hofnarr"
-	);
-
-	public static void main(String[] args) {
-		String todaysConductor = getTodaysConductor();
-		System.out.println("Today's conductor is:");
-		System.out.println(todaysConductor);
-		postOnDiscord(todaysConductor);
+	private record Officer(String userId, String username) {
 	}
 
-	private static String getTodaysConductor() {
+	private static final List<Officer> OFFICERS = List.of(
+			new Officer("413827079688421376", "Nervengift"),
+			new Officer("926965967618211950", "PopeofNope"),
+			new Officer("Chrille79", "Chrille79 (nicht in Discord)"),
+			new Officer("979853290139431003", "Carisma69"),
+			new Officer("284646412233211906", "beatngu13"),
+			new Officer("1279372492393156641", "DaMaddin"),
+			new Officer("568776713455271946", "Dieser eine Lauch"),
+			new Officer("572154754675900434", "Emeral Four"),
+			new Officer("207834501651496961", "Pavwla"),
+			new Officer("841000973660848208", "DESTROYERdev")
+	);
+
+	private static final String APP_TOKEN = System.getenv("APP_TOKEN");
+	private static final String CHANNEL_ID = System.getenv("CHANNEL_ID");
+	private static final String CHANNEL_URI = "https://discord.com/api/v10/channels/" + CHANNEL_ID + "/messages";
+
+	public static void main(String[] args) {
+		int index = getTodaysConductorIndex();
+		Officer todaysConductor = OFFICERS.get(index);
+		System.out.println("Today's train conductor is:");
+		System.out.println(todaysConductor.username());
+		postOnDiscord(todaysConductor.userId());
+	}
+
+	private static int getTodaysConductorIndex() {
 		ZoneId europeBerlin = ZoneId.of("Europe/Berlin");
-		int dayOfYear = LocalDateTime.now(europeBerlin).getDayOfYear();
-		int offset = 1;
-		int index = (dayOfYear - offset) % OFFICERS.size();
-		return OFFICERS.get(index);
+		LocalDateTime now = LocalDateTime.now(europeBerlin);
+		int year = now.getYear();
+		int dayOfYear = now.getDayOfYear();
+		int offset = 2;
+		return (year + dayOfYear - offset) % OFFICERS.size();
 	}
 
 	private static void postOnDiscord(String todaysConductor) {
-		// TODO
+		try (HttpClient client = HttpClient.newHttpClient()) {
+			String requestBody = "{\"content\": \"Today's train conductor is: <@" + todaysConductor + ">\"}";
+			HttpRequest request = HttpRequest.newBuilder()
+					.uri(URI.create(CHANNEL_URI))
+					.timeout(Duration.ofSeconds(10))
+					.header("Content-Type", "application/json")
+					.header("Accept", "application/json")
+					.header("Authorization", "Bot " + APP_TOKEN)
+					.POST(BodyPublishers.ofString(requestBody))
+					.build();
+			HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+			System.out.println("Request:");
+			System.out.println("Body: " + requestBody);
+			System.out.println("Response:");
+			System.out.println("Body: " + response.body());
+			System.out.println("Status: " + response.statusCode());
+		} catch (IOException | InterruptedException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 }

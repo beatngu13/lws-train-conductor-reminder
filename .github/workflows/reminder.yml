@@ -28,4 +28,4 @@ jobs:
 
       - name: Determine train conductor
         run: |
-          ./src/Reminder
+          ./src/Reminder ${{ inputs.dry-run != '' && inputs.dry-run || 'false' }}

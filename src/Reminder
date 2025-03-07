@@ -38,6 +38,10 @@ public class Reminder {
 		Officer todaysConductor = OFFICERS.get(index);
 		System.out.println("Today's train conductor is:");
 		System.out.println(todaysConductor.username());
+		boolean dryRun = Boolean.parseBoolean(args[0]);
+		if (dryRun) {
+			return;
+		}
 		postOnDiscord(todaysConductor.userId());
 	}
 

@@ -29,6 +29,6 @@ jobs:
       - name: Determine train conductor
         env:
           APP_TOKEN: ${{ secrets.APP_TOKEN }}
-          CHANNEL_ID: ${{ secrets.TEST_CHANNEL_ID }}
+          CHANNEL_ID: ${{ secrets.OFFICERS_CHANNEL_ID }}
         run: |
           ./src/Reminder ${{ inputs.dry-run != '' && inputs.dry-run || 'false' }}

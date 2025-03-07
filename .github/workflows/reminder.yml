@@ -8,6 +8,14 @@ on:
         required: false
         type: boolean
         default: false
+      channel:
+        description: 'Select Discord channel to post to.'
+        required: false
+        type: choice
+        options:
+          - officers
+          - test
+        default: officers
 
   schedule:
     - cron: "0 5 * * *"
@@ -29,6 +37,6 @@ jobs:
       - name: Determine train conductor
         env:
           APP_TOKEN: ${{ secrets.APP_TOKEN }}
-          CHANNEL_ID: ${{ secrets.OFFICERS_CHANNEL_ID }}
+          CHANNEL_ID: ${{ inputs.channel == 'test' && secrets.TEST_CHANNEL_ID || secrets.OFFICERS_CHANNEL_ID }}
         run: |
           ./src/Reminder ${{ inputs.dry-run != '' && inputs.dry-run || 'false' }}

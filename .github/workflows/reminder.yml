@@ -27,5 +27,8 @@ jobs:
           java-version: 23
 
       - name: Determine train conductor
+        env:
+          APP_TOKEN: ${{ secrets.APP_TOKEN }}
+          CHANNEL_ID: ${{ secrets.TEST_CHANNEL_ID }}
         run: |
           ./src/Reminder ${{ inputs.dry-run != '' && inputs.dry-run || 'false' }}

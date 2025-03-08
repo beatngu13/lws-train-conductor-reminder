@@ -42,8 +42,7 @@ public class Reminder {
 	public static void main(String[] args) {
 		var reminder = new Reminder();
 		var trainConductor = reminder.determineTodaysTrainConductor();
-		System.out.println("Today's train conductor is:");
-		System.out.println(trainConductor.lwsUsername());
+		System.out.println("Today's train conductor is: " + trainConductor.lwsUsername());
 		boolean dryRun = Boolean.parseBoolean(args[0]);
 		if (dryRun) {
 			return;

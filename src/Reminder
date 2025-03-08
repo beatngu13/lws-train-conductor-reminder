@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Reminder {
 
-	private record TrainConductor(String discordUserId, String lwsUsername) {
+	public record TrainConductor(String discordUserId, String lwsUsername) {
 
 		public boolean hasDiscordAccount() {
 			return discordUserId != null;
@@ -40,17 +40,18 @@ public class Reminder {
 	private static final String CHANNEL_URI = "https://discord.com/api/v10/channels/" + CHANNEL_ID + "/messages";
 
 	public static void main(String[] args) {
-		var trainConductor = determineTodaysTrainConductor();
+		var reminder = new Reminder();
+		var trainConductor = reminder.determineTodaysTrainConductor();
 		System.out.println("Today's train conductor is:");
 		System.out.println(trainConductor.lwsUsername());
 		boolean dryRun = Boolean.parseBoolean(args[0]);
 		if (dryRun) {
 			return;
 		}
-		postOnDiscord(trainConductor);
+		reminder.postOnDiscord(trainConductor);
 	}
 
-	private static TrainConductor determineTodaysTrainConductor() {
+	public TrainConductor determineTodaysTrainConductor() {
 		ZoneId europeBerlin = ZoneId.of("Europe/Berlin");
 		LocalDateTime now = LocalDateTime.now(europeBerlin);
 		int year = now.getYear();
@@ -60,7 +61,7 @@ public class Reminder {
 		return TRAIN_CONDUCTORS.get(index);
 	}
 
-	private static void postOnDiscord(TrainConductor trainConductor) {
+	public void postOnDiscord(TrainConductor trainConductor) {
 		try (HttpClient client = HttpClient.newHttpClient()) {
 			String userString = trainConductor.hasDiscordAccount()
 					? "<@" + trainConductor.discordUserId() + ">"

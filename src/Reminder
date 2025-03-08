@@ -62,30 +62,37 @@ public class Reminder {
 
 	public void postOnDiscord(TrainConductor trainConductor) {
 		try (HttpClient client = HttpClient.newHttpClient()) {
-			String userString = trainConductor.hasDiscordAccount()
-					? "<@" + trainConductor.discordUserId() + ">"
-					: trainConductor.lwsUsername() + " (has no Discord account)";
-			String requestBody = "{\"content\": \"Today's train conductor is: " + userString + "\"}";
-			HttpRequest request = HttpRequest.newBuilder()
-					.uri(URI.create(CHANNEL_URI))
-					.timeout(Duration.ofSeconds(10))
-					.header("Content-Type", "application/json")
-					.header("Accept", "application/json")
-					.header("Authorization", "Bot " + APP_TOKEN)
-					.POST(BodyPublishers.ofString(requestBody))
-					.build();
-			HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-			System.out.println("Request:");
-			System.out.println("Body: " + requestBody);
-			System.out.println("Response:");
-			System.out.println("Body: " + response.body());
-			System.out.println("Status: " + response.statusCode());
+			var requestBody = createRequestBody(trainConductor);
+			var httpRequest = createHttpRequest(requestBody);
+			System.out.println("Posting on discord...");
+			var httpResponse = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+			System.out.println("Request body: " + requestBody);
+			System.out.println("Response body: " + httpResponse.body());
+			System.out.println("Status code: " + httpResponse.statusCode());
 		} catch (IOException e) {
 			throw new UncheckedIOException(e);
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 			e.printStackTrace();
 		}
+	}
+
+	private String createRequestBody(TrainConductor trainConductor) {
+		String userString = trainConductor.hasDiscordAccount()
+				? "<@" + trainConductor.discordUserId() + ">"
+				: trainConductor.lwsUsername() + " (has no Discord account)";
+		return "{\"content\": \"Today's train conductor is: " + userString + "\"}";
+	}
+
+	private HttpRequest createHttpRequest(String requestBody) {
+		return HttpRequest.newBuilder()
+				.uri(URI.create(CHANNEL_URI))
+				.timeout(Duration.ofSeconds(10))
+				.header("Content-Type", "application/json")
+				.header("Accept", "application/json")
+				.header("Authorization", "Bot " + APP_TOKEN)
+				.POST(BodyPublishers.ofString(requestBody))
+				.build();
 	}
 
 }

@@ -40,31 +40,31 @@ public class Reminder {
 	private static final String CHANNEL_URI = "https://discord.com/api/v10/channels/" + CHANNEL_ID + "/messages";
 
 	public static void main(String[] args) {
-		int index = getTodaysConductorIndex();
-		Officer todaysConductor = OFFICERS.get(index);
+		Officer conductor = determineTodaysTrainConductor();
 		System.out.println("Today's train conductor is:");
-		System.out.println(todaysConductor.username());
+		System.out.println(conductor.username());
 		boolean dryRun = Boolean.parseBoolean(args[0]);
 		if (dryRun) {
 			return;
 		}
-		postOnDiscord(todaysConductor);
+		postOnDiscord(conductor);
 	}
 
-	private static int getTodaysConductorIndex() {
+	private static Officer determineTodaysTrainConductor() {
 		ZoneId europeBerlin = ZoneId.of("Europe/Berlin");
 		LocalDateTime now = LocalDateTime.now(europeBerlin);
 		int year = now.getYear();
 		int dayOfYear = now.getDayOfYear();
 		int offset = 2;
-		return (year + dayOfYear - offset) % OFFICERS.size();
+		int index = (year + dayOfYear - offset) % OFFICERS.size();
+		return OFFICERS.get(index);
 	}
 
-	private static void postOnDiscord(Officer todaysConductor) {
+	private static void postOnDiscord(Officer conductor) {
 		try (HttpClient client = HttpClient.newHttpClient()) {
-			String userString = todaysConductor.hasDiscordAccount()
-					? "<@" + todaysConductor.userId() + ">"
-					: todaysConductor.username() + " (has no Discord account)";
+			String userString = conductor.hasDiscordAccount()
+					? "<@" + conductor.userId() + ">"
+					: conductor.username() + " (has no Discord account)";
 			String requestBody = "{\"content\": \"Today's train conductor is: " + userString + "\"}";
 			HttpRequest request = HttpRequest.newBuilder()
 					.uri(URI.create(CHANNEL_URI))

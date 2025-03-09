@@ -25,7 +25,7 @@ public class Reminder {
 	private static final List<TrainConductor> TRAIN_CONDUCTORS = List.of(
 			new TrainConductor("413827079688421376", "Nervengift"),
 			new TrainConductor("926965967618211950", "PopeofNope"),
-			new TrainConductor(null, "Chrille79"),
+			new TrainConductor("502402046046109697", "Chrille79"),
 			new TrainConductor("979853290139431003", "Carisma69"),
 			new TrainConductor("284646412233211906", "beatngu13"),
 			new TrainConductor("1279372492393156641", "DaMaddin"),

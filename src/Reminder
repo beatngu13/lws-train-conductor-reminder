@@ -7,10 +7,13 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse;
+import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.temporal.WeekFields;
 import java.util.List;
+import java.util.Locale;
 
 public class Reminder {
 
@@ -53,11 +56,22 @@ public class Reminder {
 	public TrainConductor determineTodaysTrainConductor() {
 		ZoneId europeBerlin = ZoneId.of("Europe/Berlin");
 		LocalDateTime now = LocalDateTime.now(europeBerlin);
-		int year = now.getYear();
-		int dayOfYear = now.getDayOfYear();
-		int offset = 2;
-		int index = (year + dayOfYear - offset) % TRAIN_CONDUCTORS.size();
-		return TRAIN_CONDUCTORS.get(index);
+		DayOfWeek dayOfWeek = now.getDayOfWeek();
+		int weekOfYear = now.get(WeekFields.of(Locale.GERMAN).weekOfYear());
+		if (dayOfWeek == DayOfWeek.MONDAY) {
+			// General offset as we didn't start this system on January 1st.
+			int offset = 4;
+			int year = now.getYear();
+			int index = (year + weekOfYear - offset) % TRAIN_CONDUCTORS.size();
+			return TRAIN_CONDUCTORS.get(index);
+		} else {
+			// Week offset using Monday as the start of a week.
+			int offset = dayOfWeek == DayOfWeek.SUNDAY ? 2 : 1;
+			int previousWeekOfYear = weekOfYear - offset;
+			int vsRanking = dayOfWeek.getValue() - 1;
+			String lwsUsername = "Week " + previousWeekOfYear + " top VS player (rank " + vsRanking + ")";
+			return new TrainConductor(null, lwsUsername);
+		}
 	}
 
 	public void postOnDiscord(TrainConductor trainConductor) {

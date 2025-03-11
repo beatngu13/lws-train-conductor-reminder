@@ -18,7 +18,7 @@ on:
         default: officers
 
   schedule:
-    - cron: "0 5 * * *"
+    - cron: "5 2 * * *"
 
 jobs:
   reminder:

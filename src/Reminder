@@ -55,7 +55,7 @@ public class Reminder {
 		LocalDateTime now = LocalDateTime.now(europeBerlin);
 		int year = now.getYear();
 		int dayOfYear = now.getDayOfYear();
-		int offset = 2;
+		int offset = 3;
 		int index = (year + dayOfYear - offset) % TRAIN_CONDUCTORS.size();
 		return TRAIN_CONDUCTORS.get(index);
 	}

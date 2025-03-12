@@ -6,7 +6,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpRequest.BodyPublishers;
-import java.net.http.HttpResponse;
+import java.net.http.HttpResponse.BodyHandlers;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -43,11 +43,17 @@ public class Reminder {
 		var reminder = new Reminder();
 		var trainConductor = reminder.determineTodaysTrainConductor();
 		System.out.println("Today's train conductor is: " + trainConductor.lwsUsername());
-		boolean dryRun = Boolean.parseBoolean(args[0]);
-		if (dryRun) {
+		if (isDryRun(args)) {
 			return;
 		}
 		reminder.postOnDiscord(trainConductor);
+	}
+
+	private static boolean isDryRun(String[] args) {
+		if (args.length == 0) {
+			return false;
+		}
+		return Boolean.parseBoolean(args[0]);
 	}
 
 	public TrainConductor determineTodaysTrainConductor() {
@@ -65,7 +71,7 @@ public class Reminder {
 			var requestBody = createRequestBody(trainConductor);
 			var httpRequest = createHttpRequest(requestBody);
 			System.out.println("Posting on discord...");
-			var httpResponse = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+			var httpResponse = client.send(httpRequest, BodyHandlers.ofString());
 			System.out.println("Request body: " + requestBody);
 			System.out.println("Response body: " + httpResponse.body());
 			System.out.println("Status code: " + httpResponse.statusCode());

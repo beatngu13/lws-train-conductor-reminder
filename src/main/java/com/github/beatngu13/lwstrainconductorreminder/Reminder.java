@@ -1,4 +1,4 @@
-#!/usr/bin/env -S java --source 24
+package com.github.beatngu13.lwstrainconductorreminder;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;

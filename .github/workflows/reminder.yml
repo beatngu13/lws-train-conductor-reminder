@@ -39,4 +39,4 @@ jobs:
           APP_TOKEN: ${{ secrets.APP_TOKEN }}
           CHANNEL_ID: ${{ inputs.channel == 'test' && secrets.TEST_CHANNEL_ID || secrets.OFFICERS_CHANNEL_ID }}
         run: |
-          ./src/Reminder ${{ inputs.dry-run != '' && inputs.dry-run || 'false' }}
+          java src/main/java/com/github/beatngu13/lwstrainconductorreminder/Reminder.java ${{ inputs.dry-run != '' && inputs.dry-run || 'false' }}

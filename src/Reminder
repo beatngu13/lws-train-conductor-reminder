@@ -1,4 +1,4 @@
-#!/usr/bin/env -S java --source 23
+#!/usr/bin/env -S java --source 24
 
 import java.io.IOException;
 import java.io.UncheckedIOException;

@@ -46,12 +46,14 @@ public class Reminder {
 
 	public static void main(String[] args) {
 		var reminder = new Reminder();
-		var trainConductor = reminder.determineTrainConductor(reminder.getToday());
-		System.out.println("Today's train conductor is: " + trainConductor.lwsUsername());
+		LocalDateTime today = reminder.getToday();
+		var trainConductor = reminder.determineTrainConductor(today);
+		var cycle = reminder.determineCycle(today);
+		System.out.println(reminder.createMessage(cycle, trainConductor.lwsUsername()));
 		if (isDryRun(args)) {
 			return;
 		}
-		reminder.postOnDiscord(trainConductor);
+		reminder.postOnDiscord(trainConductor, cycle);
 	}
 
 	private static boolean isDryRun(String[] args) {
@@ -80,9 +82,9 @@ public class Reminder {
 		return cycle % 2 == 0 ? Cycle.R3 : Cycle.R4;
 	}
 
-	public void postOnDiscord(TrainConductor trainConductor) {
+	public void postOnDiscord(TrainConductor trainConductor, Cycle cycle) {
 		try (HttpClient client = HttpClient.newHttpClient()) {
-			var requestBody = createRequestBody(trainConductor);
+			var requestBody = createRequestBody(trainConductor, cycle);
 			var httpRequest = createHttpRequest(requestBody);
 			System.out.println("Posting on discord...");
 			var httpResponse = client.send(httpRequest, BodyHandlers.ofString());
@@ -97,11 +99,16 @@ public class Reminder {
 		}
 	}
 
-	private String createRequestBody(TrainConductor trainConductor) {
+	private String createMessage(Cycle cycle, String userString) {
+		String verb = cycle == Cycle.R4 ? "is" : "chooses";
+		return String.format("%s cycle: %s %s today's train conductor.", cycle, userString, verb);
+	}
+
+	private String createRequestBody(TrainConductor trainConductor, Cycle cycle) {
 		String userString = trainConductor.hasDiscordAccount()
 				? "<@" + trainConductor.discordUserId() + ">"
 				: trainConductor.lwsUsername() + " (has no Discord account)";
-		return "{\"content\": \"Today's train conductor is: " + userString + "\"}";
+		return "{\"content\": \"" + createMessage(cycle, userString) + "\"}";
 	}
 
 	private HttpRequest createHttpRequest(String requestBody) {

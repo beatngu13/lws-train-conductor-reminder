@@ -22,6 +22,10 @@ public class Reminder {
 
 	}
 
+	public enum Cycle {
+		R3, R4
+	}
+
 	private static final List<TrainConductor> TRAIN_CONDUCTORS = List.of(
 			new TrainConductor("413827079688421376", "Nervengift"),
 			new TrainConductor("926965967618211950", "PopeofNope"),
@@ -35,6 +39,7 @@ public class Reminder {
 			new TrainConductor("568776713455271946", "Dieser eine Lauch")
 	);
 
+	private static final int OFFSET = 3;
 	private static final String APP_TOKEN = System.getenv("APP_TOKEN");
 	private static final String CHANNEL_ID = System.getenv("CHANNEL_ID");
 	private static final String CHANNEL_URI = "https://discord.com/api/v10/channels/" + CHANNEL_ID + "/messages";
@@ -64,9 +69,15 @@ public class Reminder {
 	public TrainConductor determineTrainConductor(LocalDateTime today) {
 		int year = today.getYear();
 		int dayOfYear = today.getDayOfYear();
-		int offset = 3;
-		int index = (year + dayOfYear - offset) % TRAIN_CONDUCTORS.size();
+		int index = (year + dayOfYear - OFFSET) % TRAIN_CONDUCTORS.size();
 		return TRAIN_CONDUCTORS.get(index);
+	}
+
+	public Cycle determineCycle(LocalDateTime today) {
+		int year = today.getYear();
+		int dayOfYear = today.getDayOfYear();
+		int cycle = (year + dayOfYear - OFFSET) / TRAIN_CONDUCTORS.size();
+		return cycle % 2 == 0 ? Cycle.R3 : Cycle.R4;
 	}
 
 	public void postOnDiscord(TrainConductor trainConductor) {

@@ -41,7 +41,7 @@ public class Reminder {
 
 	public static void main(String[] args) {
 		var reminder = new Reminder();
-		var trainConductor = reminder.determineTodaysTrainConductor();
+		var trainConductor = reminder.determineTrainConductor(reminder.getToday());
 		System.out.println("Today's train conductor is: " + trainConductor.lwsUsername());
 		if (isDryRun(args)) {
 			return;
@@ -56,11 +56,14 @@ public class Reminder {
 		return Boolean.parseBoolean(args[0]);
 	}
 
-	public TrainConductor determineTodaysTrainConductor() {
+	private LocalDateTime getToday() {
 		ZoneId europeBerlin = ZoneId.of("Europe/Berlin");
-		LocalDateTime now = LocalDateTime.now(europeBerlin);
-		int year = now.getYear();
-		int dayOfYear = now.getDayOfYear();
+		return LocalDateTime.now(europeBerlin);
+	}
+
+	public TrainConductor determineTrainConductor(LocalDateTime today) {
+		int year = today.getYear();
+		int dayOfYear = today.getDayOfYear();
 		int offset = 3;
 		int index = (year + dayOfYear - offset) % TRAIN_CONDUCTORS.size();
 		return TRAIN_CONDUCTORS.get(index);

@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "local>beatngu13/renovate-config"
+    "github>beatngu13/renovate-config"
   ]
 }

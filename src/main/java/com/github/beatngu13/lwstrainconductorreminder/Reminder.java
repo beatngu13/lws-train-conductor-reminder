@@ -39,7 +39,7 @@ public class Reminder {
 			new TrainConductor("568776713455271946", "Dieser eine Lauch")
 	);
 
-	private static final int OFFSET = 3;
+	private static final LocalDateTime REFERENCE_DATE = LocalDateTime.of(2025, 2, 27, 3, 0);
 	private static final String APP_TOKEN = System.getenv("APP_TOKEN");
 	private static final String CHANNEL_ID = System.getenv("CHANNEL_ID");
 	private static final String CHANNEL_URI = "https://discord.com/api/v10/channels/" + CHANNEL_ID + "/messages";
@@ -69,16 +69,14 @@ public class Reminder {
 	}
 
 	public TrainConductor determineTrainConductor(LocalDateTime today) {
-		int year = today.getYear();
-		int dayOfYear = today.getDayOfYear();
-		int index = (year + dayOfYear - OFFSET) % TRAIN_CONDUCTORS.size();
+		int days = Math.toIntExact(Duration.between(REFERENCE_DATE, today).toDays());
+		int index = days % TRAIN_CONDUCTORS.size();
 		return TRAIN_CONDUCTORS.get(index);
 	}
 
 	public Cycle determineCycle(LocalDateTime today) {
-		int year = today.getYear();
-		int dayOfYear = today.getDayOfYear();
-		int cycle = (year + dayOfYear - OFFSET) / TRAIN_CONDUCTORS.size();
+		int days = Math.toIntExact(Duration.between(REFERENCE_DATE, today).toDays());
+		int cycle = days / TRAIN_CONDUCTORS.size();
 		return cycle % 2 == 0 ? Cycle.R3 : Cycle.R4;
 	}
 

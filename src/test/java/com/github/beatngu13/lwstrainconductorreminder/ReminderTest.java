@@ -1,7 +1,6 @@
 package com.github.beatngu13.lwstrainconductorreminder;
 
 import com.github.beatngu13.lwstrainconductorreminder.Reminder.Cycle;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -24,7 +23,6 @@ class ReminderTest {
 		assertThat(trainConductor.lwsUsername()).isEqualTo("Carisma69");
 	}
 
-	@Disabled("Should be beatngu13 but is Pavwla.")
 	@Test
 	void determineTrainConductor_firstDayOf2026() {
 		var cut = new Reminder();

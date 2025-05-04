@@ -1,7 +1,6 @@
 package com.github.beatngu13.lwstrainconductorreminder;
 
 import com.github.beatngu13.lwstrainconductorreminder.Reminder.Cycle;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -13,24 +12,63 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class ReminderTest {
 
-	@Test
-	void determineTrainConductor_lastDayOf2025() {
+	@ParameterizedTest
+	@MethodSource
+	void determineTrainConductor(LocalDateTime today, String expectedLwsUsername) {
 		var cut = new Reminder();
-		var today = LocalDateTime.of(2025, 12, 31, 3, 0);
 
 		var trainConductor = cut.determineTrainConductor(today);
 
-		assertThat(trainConductor.lwsUsername()).isEqualTo("Carisma69");
+		assertThat(trainConductor.lwsUsername()).isEqualTo(expectedLwsUsername);
 	}
 
-	@Test
-	void determineTrainConductor_firstDayOf2026() {
-		var cut = new Reminder();
-		var today = LocalDateTime.of(2026, 1, 1, 3, 0);
-
-		var trainConductor = cut.determineTrainConductor(today);
-
-		assertThat(trainConductor.lwsUsername()).isEqualTo("beatngu13");
+	static Stream<Arguments> determineTrainConductor() {
+		return Stream.of(
+				Arguments.of(
+						LocalDateTime.of(2025, 12, 23, 3, 0),
+						"Dieser eine Lauch"
+				),
+				Arguments.of(
+						LocalDateTime.of(2025, 12, 24, 3, 0),
+						"Nervengift"
+				),
+				Arguments.of(
+						LocalDateTime.of(2025, 12, 25, 3, 0),
+						"PopeofNope"
+				),
+				Arguments.of(
+						LocalDateTime.of(2025, 12, 26, 3, 0),
+						"DaMaddin"
+				),
+				Arguments.of(
+						LocalDateTime.of(2025, 12, 27, 3, 0),
+						"Emeral Four"
+				),
+				Arguments.of(
+						LocalDateTime.of(2025, 12, 28, 3, 0),
+						"Pavwla"
+				),
+				Arguments.of(
+						LocalDateTime.of(2025, 12, 29, 3, 0),
+						"DESTROYERdev"
+				),
+				Arguments.of(
+						LocalDateTime.of(2025, 12, 30, 3, 0),
+						"Chrille79"
+				),
+				Arguments.of(
+						LocalDateTime.of(2025, 12, 31, 3, 0),
+						"Carisma69"
+				),
+				Arguments.of(
+						LocalDateTime.of(2026, 1, 1, 3, 0),
+						"beatngu13"
+				),
+				Arguments.of(
+						LocalDateTime.of(2026, 1, 2, 3, 0),
+						"Dieser eine Lauch"
+				)
+		);
 	}
 
 	@ParameterizedTest

@@ -69,15 +69,17 @@ public class Reminder {
 	}
 
 	public TrainConductor determineTrainConductor(LocalDateTime today) {
-		int days = Math.toIntExact(Duration.between(REFERENCE_DATE, today).toDays());
-		int index = days % TRAIN_CONDUCTORS.size();
+		int index = getDaysSinceReferenceDate(today) % TRAIN_CONDUCTORS.size();
 		return TRAIN_CONDUCTORS.get(index);
 	}
 
 	public Cycle determineCycle(LocalDateTime today) {
-		int days = Math.toIntExact(Duration.between(REFERENCE_DATE, today).toDays());
-		int cycle = days / TRAIN_CONDUCTORS.size();
+		int cycle = getDaysSinceReferenceDate(today) / TRAIN_CONDUCTORS.size();
 		return cycle % 2 == 0 ? Cycle.R3 : Cycle.R4;
+	}
+
+	private int getDaysSinceReferenceDate(LocalDateTime today) {
+		return Math.toIntExact(Duration.between(REFERENCE_DATE, today).toDays());
 	}
 
 	public void postOnDiscord(TrainConductor trainConductor, Cycle cycle) {

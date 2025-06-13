@@ -39,6 +39,7 @@ public class Reminder {
 	);
 
 	private static final LocalDateTime REFERENCE_DATE = LocalDateTime.of(2025, 2, 27, 3, 0);
+	private static final int OFFSET = -1;
 	private static final String APP_TOKEN = System.getenv("APP_TOKEN");
 	private static final String CHANNEL_ID = System.getenv("CHANNEL_ID");
 	private static final String CHANNEL_URI = "https://discord.com/api/v10/channels/" + CHANNEL_ID + "/messages";
@@ -78,7 +79,7 @@ public class Reminder {
 	}
 
 	private int getDaysSinceReferenceDate(LocalDateTime today) {
-		return Math.toIntExact(Duration.between(REFERENCE_DATE, today).toDays());
+		return Math.toIntExact(Duration.between(REFERENCE_DATE, today).toDays()) + OFFSET;
 	}
 
 	public void postOnDiscord(TrainConductor trainConductor, Cycle cycle) {

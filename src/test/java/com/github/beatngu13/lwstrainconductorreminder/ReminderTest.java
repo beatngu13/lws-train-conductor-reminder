@@ -26,43 +26,43 @@ class ReminderTest {
 		return Stream.of(
 				Arguments.of(
 						LocalDateTime.of(2025, 12, 23, 3, 0),
-						"DaMaddin"
-				),
-				Arguments.of(
-						LocalDateTime.of(2025, 12, 24, 3, 0),
-						"Emeral Four"
-				),
-				Arguments.of(
-						LocalDateTime.of(2025, 12, 25, 3, 0),
-						"Pavwla"
-				),
-				Arguments.of(
-						LocalDateTime.of(2025, 12, 26, 3, 0),
-						"Chrille79"
-				),
-				Arguments.of(
-						LocalDateTime.of(2025, 12, 27, 3, 0),
-						"Carisma69"
-				),
-				Arguments.of(
-						LocalDateTime.of(2025, 12, 28, 3, 0),
-						"beatngu13"
-				),
-				Arguments.of(
-						LocalDateTime.of(2025, 12, 29, 3, 0),
-						"Dieser eine Lauch"
-				),
-				Arguments.of(
-						LocalDateTime.of(2025, 12, 30, 3, 0),
-						"Nervengift"
-				),
-				Arguments.of(
-						LocalDateTime.of(2025, 12, 31, 3, 0),
 						"PopeofNope"
 				),
 				Arguments.of(
-						LocalDateTime.of(2026, 1, 1, 3, 0),
+						LocalDateTime.of(2025, 12, 24, 3, 0),
 						"DaMaddin"
+				),
+				Arguments.of(
+						LocalDateTime.of(2025, 12, 25, 3, 0),
+						"Emeral Four"
+				),
+				Arguments.of(
+						LocalDateTime.of(2025, 12, 26, 3, 0),
+						"Pavwla"
+				),
+				Arguments.of(
+						LocalDateTime.of(2025, 12, 27, 3, 0),
+						"Chrille79"
+				),
+				Arguments.of(
+						LocalDateTime.of(2025, 12, 28, 3, 0),
+						"Carisma69"
+				),
+				Arguments.of(
+						LocalDateTime.of(2025, 12, 29, 3, 0),
+						"beatngu13"
+				),
+				Arguments.of(
+						LocalDateTime.of(2025, 12, 30, 3, 0),
+						"Dieser eine Lauch"
+				),
+				Arguments.of(
+						LocalDateTime.of(2025, 12, 31, 3, 0),
+						"Nervengift"
+				),
+				Arguments.of(
+						LocalDateTime.of(2026, 1, 1, 3, 0),
+						"PopeofNope"
 				)
 		);
 	}

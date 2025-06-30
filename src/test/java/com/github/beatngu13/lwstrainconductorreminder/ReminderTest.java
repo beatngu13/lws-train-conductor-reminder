@@ -26,7 +26,7 @@ class ReminderTest {
 		return Stream.of(
 				Arguments.of(
 						LocalDateTime.of(2025, 12, 23, 3, 0),
-						"PopeofNope"
+						"PopeNope"
 				),
 				Arguments.of(
 						LocalDateTime.of(2025, 12, 24, 3, 0),
@@ -62,7 +62,7 @@ class ReminderTest {
 				),
 				Arguments.of(
 						LocalDateTime.of(2026, 1, 1, 3, 0),
-						"PopeofNope"
+						"PopeNope"
 				)
 		);
 	}

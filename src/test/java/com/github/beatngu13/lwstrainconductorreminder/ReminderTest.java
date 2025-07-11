@@ -26,11 +26,11 @@ class ReminderTest {
 		return Stream.of(
 				Arguments.of(
 						LocalDateTime.of(2025, 12, 23, 3, 0),
-						"PopeNope"
+						"Keyser Sözer"
 				),
 				Arguments.of(
 						LocalDateTime.of(2025, 12, 24, 3, 0),
-						"DaMaddin"
+						"Nervengift"
 				),
 				Arguments.of(
 						LocalDateTime.of(2025, 12, 25, 3, 0),
@@ -58,11 +58,11 @@ class ReminderTest {
 				),
 				Arguments.of(
 						LocalDateTime.of(2025, 12, 31, 3, 0),
-						"Nervengift"
+						"underworld king"
 				),
 				Arguments.of(
 						LocalDateTime.of(2026, 1, 1, 3, 0),
-						"PopeNope"
+						"Keyser Sözer"
 				)
 		);
 	}
@@ -93,11 +93,11 @@ class ReminderTest {
 				),
 				Arguments.of(
 						LocalDateTime.of(2025, 6, 16, 3, 0),
-						Cycle.R4
+						Cycle.R3
 				),
 				Arguments.of(
 						LocalDateTime.of(2025, 6, 17, 3, 0),
-						Cycle.R4
+						Cycle.R3
 				),
 				Arguments.of(
 						LocalDateTime.of(2025, 6, 18, 3, 0),

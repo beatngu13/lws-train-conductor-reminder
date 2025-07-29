@@ -30,10 +30,10 @@ public class Reminder {
 			new TrainConductor("413827079688421376", "Nervengift"),
 			new TrainConductor("572154754675900434", "Emeral Four"),
 			new TrainConductor("207834501651496961", "Pavwla"),
-			new TrainConductor("502402046046109697", "Chrille79"),
+			new TrainConductor("568776713455271946", "Dieser eine Lauch"),
 			new TrainConductor("979853290139431003", "Carisma69"),
 			new TrainConductor("284646412233211906", "beatngu13"),
-			new TrainConductor("568776713455271946", "Dieser eine Lauch"),
+			new TrainConductor("1335254915819376641", "Xaver 123"),
 			new TrainConductor("1294891323043610642", "underworld king"),
 			new TrainConductor("1283699251779604501", "Keyser Sözer")
 	);

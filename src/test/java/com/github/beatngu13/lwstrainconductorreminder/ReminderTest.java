@@ -44,7 +44,7 @@ class ReminderTest {
 				),
 				Arguments.of(
 						LocalDateTime.of(2025, 12, 27, 3, 0),
-						"Chrille79"
+						"Dieser eine Lauch"
 				),
 				Arguments.of(
 						LocalDateTime.of(2025, 12, 28, 3, 0),
@@ -56,7 +56,7 @@ class ReminderTest {
 				),
 				Arguments.of(
 						LocalDateTime.of(2025, 12, 30, 3, 0),
-						"Dieser eine Lauch"
+						"Xaver 123"
 				),
 				Arguments.of(
 						LocalDateTime.of(2025, 12, 31, 3, 0),

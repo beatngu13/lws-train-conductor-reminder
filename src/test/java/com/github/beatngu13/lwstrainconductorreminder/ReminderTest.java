@@ -1,6 +1,8 @@
 package com.github.beatngu13.lwstrainconductorreminder;
 
 import com.github.beatngu13.lwstrainconductorreminder.Reminder.Cycle;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -104,6 +106,19 @@ class ReminderTest {
 						Cycle.R4
 				)
 		);
+	}
+
+	@Disabled
+	@Test
+	void smokeTest() {
+		var today = LocalDateTime.now();
+		var cut = new Reminder();
+
+		var cycle = cut.determineCycle(today);
+		var trainConductor = cut.determineTrainConductor(today);
+
+		assertThat(cycle).isEqualTo(Cycle.R4);
+		assertThat(trainConductor.lwsUsername()).isEqualTo("beatngu13");
 	}
 
 }

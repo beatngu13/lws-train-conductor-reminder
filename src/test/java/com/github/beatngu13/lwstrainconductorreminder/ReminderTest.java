@@ -113,8 +113,8 @@ class ReminderTest {
 		var cycle = cut.determineCycle(today);
 		var trainConductor = cut.determineTrainConductor(today);
 
+		assertThat(trainConductor.lwsUsername()).isEqualTo("Keyser Sözer");
 		assertThat(cycle).isEqualTo(Cycle.R4);
-		assertThat(trainConductor.lwsUsername()).isEqualTo("beatngu13");
 	}
 
 }

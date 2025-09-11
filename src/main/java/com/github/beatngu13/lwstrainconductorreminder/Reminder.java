@@ -31,11 +31,11 @@ public class Reminder {
 			new TrainConductor("572154754675900434", "Emeral Four"),
 			new TrainConductor("207834501651496961", "Pavwla"),
 			new TrainConductor("568776713455271946", "Dieser eine Lauch"),
-			new TrainConductor("979853290139431003", "Carisma69"),
 			new TrainConductor("810059372066897950", "Amboss1919"),
 			new TrainConductor("284646412233211906", "beatngu13"),
-			new TrainConductor("1335254915819376641", "Xaver 123"),
-			new TrainConductor("1283699251779604501", "Keyser Sözer")
+			new TrainConductor("1335254915819376641", "Xaver 123")
+			// On vacation.
+			// new TrainConductor("1283699251779604501", "Keyser Sözer")
 	);
 
 	private static final LocalDateTime REFERENCE_DATE = LocalDateTime.of(2025, 2, 27, 3, 0);

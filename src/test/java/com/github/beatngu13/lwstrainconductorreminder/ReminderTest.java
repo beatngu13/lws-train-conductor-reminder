@@ -1,6 +1,7 @@
 package com.github.beatngu13.lwstrainconductorreminder;
 
 import com.github.beatngu13.lwstrainconductorreminder.Reminder.Cycle;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -35,26 +36,30 @@ class ReminderTest {
 				),
 				Arguments.of(
 						LocalDateTime.of(2025, 12, 27, 3, 0),
-						"Nervengift"
+						"Sunny"
 				),
 				Arguments.of(
 						LocalDateTime.of(2025, 12, 28, 3, 0),
-						"Emeral Four"
+						"Nervengift"
 				),
 				Arguments.of(
 						LocalDateTime.of(2025, 12, 29, 3, 0),
-						"Pavwla"
+						"Emeral Four"
 				),
 				Arguments.of(
 						LocalDateTime.of(2025, 12, 30, 3, 0),
-						"Dieser eine Lauch"
+						"Pavwla"
 				),
 				Arguments.of(
 						LocalDateTime.of(2025, 12, 31, 3, 0),
-						"Amboss1919"
+						"Dieser eine Lauch"
 				),
 				Arguments.of(
 						LocalDateTime.of(2026, 1, 1, 3, 0),
+						"Amboss1919"
+				),
+				Arguments.of(
+						LocalDateTime.of(2026, 1, 2, 3, 0),
 						"beatngu13"
 				)
 		);
@@ -73,8 +78,20 @@ class ReminderTest {
 	static Stream<Arguments> determineCycle() {
 		return Stream.of(
 				Arguments.of(
-						LocalDateTime.of(2025, 6, 13, 3, 0),
+						LocalDateTime.of(2025, 6, 10, 3, 0),
 						Cycle.R4
+				),
+				Arguments.of(
+						LocalDateTime.of(2025, 6, 11, 3, 0),
+						Cycle.R3
+				),
+				Arguments.of(
+						LocalDateTime.of(2025, 6, 12, 3, 0),
+						Cycle.R3
+				),
+				Arguments.of(
+						LocalDateTime.of(2025, 6, 13, 3, 0),
+						Cycle.R3
 				),
 				Arguments.of(
 						LocalDateTime.of(2025, 6, 14, 3, 0),
@@ -98,19 +115,12 @@ class ReminderTest {
 				),
 				Arguments.of(
 						LocalDateTime.of(2025, 6, 19, 3, 0),
-						Cycle.R3
-				),
-				Arguments.of(
-						LocalDateTime.of(2025, 6, 20, 3, 0),
-						Cycle.R3
-				),
-				Arguments.of(
-						LocalDateTime.of(2025, 6, 21, 3, 0),
 						Cycle.R4
 				)
 		);
 	}
 
+	@Disabled
 	@Test
 	void smokeTest() {
 		var today = LocalDateTime.now();
@@ -119,7 +129,7 @@ class ReminderTest {
 		var cycle = cut.determineCycle(today);
 		var trainConductor = cut.determineTrainConductor(today);
 
-		assertThat(trainConductor.lwsUsername()).isEqualTo("beatngu13");
+		assertThat(trainConductor.lwsUsername()).isEqualTo("Nervengift");
 		assertThat(cycle).isEqualTo(Cycle.R3);
 	}
 

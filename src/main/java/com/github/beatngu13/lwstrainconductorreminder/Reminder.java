@@ -33,13 +33,12 @@ public class Reminder {
 			new TrainConductor("568776713455271946", "Dieser eine Lauch"),
 			new TrainConductor("810059372066897950", "Amboss1919"),
 			new TrainConductor("284646412233211906", "beatngu13"),
-			new TrainConductor("1335254915819376641", "Xaver 123")
-			// On vacation.
-			// new TrainConductor("1283699251779604501", "Keyser Sözer")
+			new TrainConductor("1335254915819376641", "Xaver 123"),
+			new TrainConductor("242602233475104768", "Sunny")
 	);
 
 	private static final LocalDateTime REFERENCE_DATE = LocalDateTime.of(2025, 2, 27, 3, 0);
-	private static final int OFFSET = -2;
+	private static final int OFFSET = 0;
 	private static final String APP_TOKEN = System.getenv("APP_TOKEN");
 	private static final String CHANNEL_ID = System.getenv("CHANNEL_ID");
 	private static final String CHANNEL_URI = "https://discord.com/api/v10/channels/" + CHANNEL_ID + "/messages";

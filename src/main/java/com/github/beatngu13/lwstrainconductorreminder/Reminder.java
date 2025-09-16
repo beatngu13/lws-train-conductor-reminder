@@ -74,7 +74,7 @@ public class Reminder {
 
 	public Cycle determineCycle(LocalDateTime today) {
 		int cycle = getDaysSinceReferenceDate(today) / TRAIN_CONDUCTORS.size();
-		return cycle % 2 == 0 ? Cycle.R4 : Cycle.R3;
+		return cycle % 2 == 0 ? Cycle.R3 : Cycle.R4;
 	}
 
 	private int getDaysSinceReferenceDate(LocalDateTime today) {

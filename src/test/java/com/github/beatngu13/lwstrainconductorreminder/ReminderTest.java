@@ -79,43 +79,43 @@ class ReminderTest {
 		return Stream.of(
 				Arguments.of(
 						LocalDateTime.of(2025, 6, 10, 3, 0),
-						Cycle.R4
+						Cycle.R3
 				),
 				Arguments.of(
 						LocalDateTime.of(2025, 6, 11, 3, 0),
-						Cycle.R3
+						Cycle.R4
 				),
 				Arguments.of(
 						LocalDateTime.of(2025, 6, 12, 3, 0),
-						Cycle.R3
+						Cycle.R4
 				),
 				Arguments.of(
 						LocalDateTime.of(2025, 6, 13, 3, 0),
-						Cycle.R3
+						Cycle.R4
 				),
 				Arguments.of(
 						LocalDateTime.of(2025, 6, 14, 3, 0),
-						Cycle.R3
+						Cycle.R4
 				),
 				Arguments.of(
 						LocalDateTime.of(2025, 6, 15, 3, 0),
-						Cycle.R3
+						Cycle.R4
 				),
 				Arguments.of(
 						LocalDateTime.of(2025, 6, 16, 3, 0),
-						Cycle.R3
+						Cycle.R4
 				),
 				Arguments.of(
 						LocalDateTime.of(2025, 6, 17, 3, 0),
-						Cycle.R3
+						Cycle.R4
 				),
 				Arguments.of(
 						LocalDateTime.of(2025, 6, 18, 3, 0),
-						Cycle.R3
+						Cycle.R4
 				),
 				Arguments.of(
 						LocalDateTime.of(2025, 6, 19, 3, 0),
-						Cycle.R4
+						Cycle.R3
 				)
 		);
 	}
@@ -129,8 +129,8 @@ class ReminderTest {
 		var cycle = cut.determineCycle(today);
 		var trainConductor = cut.determineTrainConductor(today);
 
-		assertThat(trainConductor.lwsUsername()).isEqualTo("Nervengift");
-		assertThat(cycle).isEqualTo(Cycle.R3);
+		assertThat(trainConductor.lwsUsername()).isEqualTo("Emeral Four");
+		assertThat(cycle).isEqualTo(Cycle.R4);
 	}
 
 }

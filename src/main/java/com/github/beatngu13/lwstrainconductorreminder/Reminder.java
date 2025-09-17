@@ -29,12 +29,12 @@ public class Reminder {
 	private static final List<TrainConductor> TRAIN_CONDUCTORS = List.of(
 			new TrainConductor("413827079688421376", "Nervengift"),
 			new TrainConductor("572154754675900434", "Emeral Four"),
-			new TrainConductor("207834501651496961", "Pavwla"),
 			new TrainConductor("568776713455271946", "Dieser eine Lauch"),
 			new TrainConductor("810059372066897950", "Amboss1919"),
 			new TrainConductor("284646412233211906", "beatngu13"),
 			new TrainConductor("1335254915819376641", "Xaver 123"),
-			new TrainConductor("242602233475104768", "Sunny")
+			new TrainConductor("242602233475104768", "Sunny"),
+			new TrainConductor("207834501651496961", "Pavwla")
 	);
 
 	private static final LocalDateTime REFERENCE_DATE = LocalDateTime.of(2025, 2, 27, 3, 0);

@@ -28,15 +28,15 @@ class ReminderTest {
 		return Stream.of(
 				Arguments.of(
 						LocalDateTime.of(2025, 12, 25, 3, 0),
-						"beatngu13"
-				),
-				Arguments.of(
-						LocalDateTime.of(2025, 12, 26, 3, 0),
 						"Xaver 123"
 				),
 				Arguments.of(
-						LocalDateTime.of(2025, 12, 27, 3, 0),
+						LocalDateTime.of(2025, 12, 26, 3, 0),
 						"Sunny"
+				),
+				Arguments.of(
+						LocalDateTime.of(2025, 12, 27, 3, 0),
+						"Pavwla"
 				),
 				Arguments.of(
 						LocalDateTime.of(2025, 12, 28, 3, 0),
@@ -48,19 +48,19 @@ class ReminderTest {
 				),
 				Arguments.of(
 						LocalDateTime.of(2025, 12, 30, 3, 0),
-						"Pavwla"
-				),
-				Arguments.of(
-						LocalDateTime.of(2025, 12, 31, 3, 0),
 						"Dieser eine Lauch"
 				),
 				Arguments.of(
-						LocalDateTime.of(2026, 1, 1, 3, 0),
+						LocalDateTime.of(2025, 12, 31, 3, 0),
 						"Amboss1919"
 				),
 				Arguments.of(
-						LocalDateTime.of(2026, 1, 2, 3, 0),
+						LocalDateTime.of(2026, 1, 1, 3, 0),
 						"beatngu13"
+				),
+				Arguments.of(
+						LocalDateTime.of(2026, 1, 2, 3, 0),
+						"Xaver 123"
 				)
 		);
 	}
@@ -129,7 +129,7 @@ class ReminderTest {
 		var cycle = cut.determineCycle(today);
 		var trainConductor = cut.determineTrainConductor(today);
 
-		assertThat(trainConductor.lwsUsername()).isEqualTo("Emeral Four");
+		assertThat(trainConductor.lwsUsername()).isEqualTo("Dieser eine Lauch");
 		assertThat(cycle).isEqualTo(Cycle.R4);
 	}
 

@@ -34,11 +34,14 @@ public class Reminder {
 			new TrainConductor("284646412233211906", "beatngu13"),
 			new TrainConductor("1335254915819376641", "Xaver 123"),
 			new TrainConductor("242602233475104768", "Sunny"),
-			new TrainConductor("207834501651496961", "Pavwla")
+			new TrainConductor("207834501651496961", "Pavwla"),
+			new TrainConductor("334730033132339200", "WretčhedEgg"),
+			new TrainConductor("548515919333163023", "Killiz"),
+			new TrainConductor("157903563803066368", "Sharky1972")
 	);
 
 	private static final LocalDateTime REFERENCE_DATE = LocalDateTime.of(2025, 2, 27, 3, 0);
-	private static final int OFFSET = 0;
+	private static final int OFFSET = -2;
 	private static final String APP_TOKEN = System.getenv("APP_TOKEN");
 	private static final String CHANNEL_ID = System.getenv("CHANNEL_ID");
 	private static final String CHANNEL_URI = "https://discord.com/api/v10/channels/" + CHANNEL_ID + "/messages";
@@ -74,7 +77,7 @@ public class Reminder {
 
 	public Cycle determineCycle(LocalDateTime today) {
 		int cycle = getDaysSinceReferenceDate(today) / TRAIN_CONDUCTORS.size();
-		return cycle % 2 == 0 ? Cycle.R3 : Cycle.R4;
+		return cycle % 2 == 0 ? Cycle.R4 : Cycle.R3;
 	}
 
 	private int getDaysSinceReferenceDate(LocalDateTime today) {

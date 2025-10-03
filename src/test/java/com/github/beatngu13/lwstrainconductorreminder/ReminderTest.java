@@ -90,52 +90,100 @@ class ReminderTest {
 	static Stream<Arguments> determineCycle() {
 		return Stream.of(
 				Arguments.of(
-						LocalDateTime.of(2025, 12, 28, 3, 0),
-						Cycle.R3
+						LocalDateTime.of(2025, 10, 6, 3, 0),
+						Cycle.R3_W1
 				),
 				Arguments.of(
-						LocalDateTime.of(2025, 12, 29, 3, 0),
-						Cycle.R3
+						LocalDateTime.of(2025, 10, 7, 3, 0),
+						Cycle.R3_W2
 				),
 				Arguments.of(
-						LocalDateTime.of(2025, 12, 30, 3, 0),
-						Cycle.R3
+						LocalDateTime.of(2025, 10, 8, 3, 0),
+						Cycle.R3_W2
 				),
 				Arguments.of(
-						LocalDateTime.of(2025, 12, 31, 3, 0),
-						Cycle.R3
+						LocalDateTime.of(2025, 10, 9, 3, 0),
+						Cycle.R3_W2
 				),
 				Arguments.of(
-						LocalDateTime.of(2026, 1, 1, 3, 0),
-						Cycle.R3
+						LocalDateTime.of(2025, 10, 10, 3, 0),
+						Cycle.R3_W2
 				),
 				Arguments.of(
-						LocalDateTime.of(2026, 1, 2, 3, 0),
-						Cycle.R3
+						LocalDateTime.of(2025, 10, 11, 3, 0),
+						Cycle.R3_W2
 				),
 				Arguments.of(
-						LocalDateTime.of(2026, 1, 3, 3, 0),
+						LocalDateTime.of(2025, 10, 12, 3, 0),
+						Cycle.R3_W2
+				),
+				Arguments.of(
+						LocalDateTime.of(2025, 10, 13, 3, 0),
+						Cycle.R3_W2
+				),
+				Arguments.of(
+						LocalDateTime.of(2025, 10, 14, 3, 0),
+						Cycle.R3_W2
+				),
+				Arguments.of(
+						LocalDateTime.of(2025, 10, 15, 3, 0),
+						Cycle.R3_W2
+				),
+				Arguments.of(
+						LocalDateTime.of(2025, 10, 16, 3, 0),
+						Cycle.R3_W2
+				),
+				Arguments.of(
+						LocalDateTime.of(2025, 10, 17, 3, 0),
+						Cycle.R3_W2
+				),
+				Arguments.of(
+						LocalDateTime.of(2025, 10, 18, 3, 0),
 						Cycle.R4
 				),
 				Arguments.of(
-						LocalDateTime.of(2026, 1, 4, 3, 0),
+						LocalDateTime.of(2025, 10, 19, 3, 0),
 						Cycle.R4
 				),
 				Arguments.of(
-						LocalDateTime.of(2026, 1, 5, 3, 0),
+						LocalDateTime.of(2025, 10, 20, 3, 0),
 						Cycle.R4
 				),
 				Arguments.of(
-						LocalDateTime.of(2026, 1, 6, 3, 0),
+						LocalDateTime.of(2025, 10, 21, 3, 0),
 						Cycle.R4
 				),
 				Arguments.of(
-						LocalDateTime.of(2026, 1, 7, 3, 0),
+						LocalDateTime.of(2025, 10, 22, 3, 0),
 						Cycle.R4
 				),
 				Arguments.of(
-						LocalDateTime.of(2026, 1, 8, 3, 0),
+						LocalDateTime.of(2025, 10, 23, 3, 0),
 						Cycle.R4
+				),
+				Arguments.of(
+						LocalDateTime.of(2025, 10, 24, 3, 0),
+						Cycle.R4
+				),
+				Arguments.of(
+						LocalDateTime.of(2025, 10, 25, 3, 0),
+						Cycle.R4
+				),
+				Arguments.of(
+						LocalDateTime.of(2025, 10, 26, 3, 0),
+						Cycle.R4
+				),
+				Arguments.of(
+						LocalDateTime.of(2025, 10, 27, 3, 0),
+						Cycle.R4
+				),
+				Arguments.of(
+						LocalDateTime.of(2025, 10, 28, 3, 0),
+						Cycle.R4
+				),
+				Arguments.of(
+						LocalDateTime.of(2025, 10, 29, 3, 0),
+						Cycle.R3_W1
 				)
 		);
 	}
@@ -150,7 +198,7 @@ class ReminderTest {
 		var trainConductor = cut.determineTrainConductor(today);
 
 		assertThat(trainConductor.lwsUsername()).isEqualTo("Pavwla");
-		assertThat(cycle).isEqualTo(Cycle.R4);
+		assertThat(cycle).isEqualTo(Cycle.R3_W1);
 	}
 
 }

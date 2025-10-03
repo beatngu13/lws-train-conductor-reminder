@@ -23,7 +23,20 @@ public class Reminder {
 	}
 
 	public enum Cycle {
-		R3, R4
+
+		R4,
+		R3_W1,
+		R3_W2;
+
+		@Override
+		public String toString() {
+			return switch (this) {
+				case R4 -> "R4";
+				case R3_W1 -> "R3 (week 1)";
+				case R3_W2 -> "R3 (week 2)";
+			};
+		}
+
 	}
 
 	private static final List<TrainConductor> TRAIN_CONDUCTORS = List.of(
@@ -76,8 +89,15 @@ public class Reminder {
 	}
 
 	public Cycle determineCycle(LocalDateTime today) {
-		int cycle = getDaysSinceReferenceDate(today) / TRAIN_CONDUCTORS.size();
-		return cycle % 2 == 0 ? Cycle.R4 : Cycle.R3;
+		int quotient = getDaysSinceReferenceDate(today) / TRAIN_CONDUCTORS.size();
+		int cycle = quotient % 3;
+		return switch (cycle) {
+			case 0 -> Cycle.R4;
+			case 1 -> Cycle.R3_W1;
+			case 2 -> Cycle.R3_W2;
+			default ->
+					throw new IllegalStateException("Unexpected cycle: " + cycle + " (0 = R4, 1 = R3_W1, 2 = R3_W2)");
+		};
 	}
 
 	private int getDaysSinceReferenceDate(LocalDateTime today) {

@@ -131,7 +131,7 @@ public class Reminder {
 		var nextMonday = today.plusDays(daysUntilNextMonday);
 		StringBuffer messageBuffer = new StringBuffer();
 
-		messageBuffer.append("Please pick your train conductor for next week.\n\n");
+		messageBuffer.append("Please pick your train conductor for next week.\\n\\n");
 		for (int i = 0; i < 7; i++) {
 			var currentDay = nextMonday.plusDays(i);
 			var currentDayDisplayName = currentDay.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
@@ -143,9 +143,9 @@ public class Reminder {
 					.append(trainConductor.lwsUsername())
 					.append(": ")
 					.append(cycle)
-					.append("\n");
+					.append("\\n");
 		}
-		messageBuffer.append("\nLink: [Train conductor.xlsb](https://docs.google.com/spreadsheets/d/1eyDVzal1BUNez5Ffo4cT6wvQJrbKiJI1AdxTiH2VowQ/edit?gid=1854922681#gid=1854922681&range=A65https://docs.google.com/spreadsheets/d/1eyDVzal1BUNez5Ffo4cT6wvQJrbKiJI1AdxTiH2VowQ/edit?gid=1854922681#gid=1854922681&range=A65)");
+		messageBuffer.append("\\nLink: [Train conductor.xlsb](https://docs.google.com/spreadsheets/d/1eyDVzal1BUNez5Ffo4cT6wvQJrbKiJI1AdxTiH2VowQ/edit?gid=1854922681#gid=1854922681&range=A65https://docs.google.com/spreadsheets/d/1eyDVzal1BUNez5Ffo4cT6wvQJrbKiJI1AdxTiH2VowQ/edit?gid=1854922681#gid=1854922681&range=A65)");
 
 		return messageBuffer.toString();
 	}

@@ -135,16 +135,16 @@ public class Reminder {
 		var nextMonday = today.plusDays(daysUntilNextMonday);
 		StringBuffer messageBuffer = new StringBuffer();
 
-		messageBuffer.append("Please pick your train conductor for next week.\\n\\n");
+		messageBuffer.append("\\n\\nIn addition, please choose the train conductors for next week.\\n\\n");
 		for (int i = 0; i < 7; i++) {
 			var currentDay = nextMonday.plusDays(i);
 			var currentDayDisplayName = currentDay.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
 			var trainConductor = determineTrainConductor(currentDay);
 			var cycle = determineCycle(currentDay);
 			messageBuffer
-					.append("* *")
+					.append("* **")
 					.append(currentDayDisplayName)
-					.append(".* ")
+					.append(".** ")
 					.append(getUserString(trainConductor))
 					.append(": ")
 					.append(cycle)

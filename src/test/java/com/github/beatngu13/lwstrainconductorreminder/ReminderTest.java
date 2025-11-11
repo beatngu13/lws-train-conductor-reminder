@@ -196,15 +196,17 @@ class ReminderTest {
 
 		var weeklyMessageUnescaped = weeklyMessage.replaceAll("\\\\n", "\n");
 		assertThat(weeklyMessageUnescaped).isEqualTo("""
-				Please pick your train conductor for next week.
 				
-				* *Mon.* <@334730033132339200>: R3 cycle (round 2)
-				* *Tue.* <@548515919333163023>: R3 cycle (round 2)
-				* *Wed.* <@157903563803066368>: R3 cycle (round 2)
-				* *Thu.* <@413827079688421376>: R4 cycle
-				* *Fri.* <@572154754675900434>: R4 cycle
-				* *Sat.* <@568776713455271946>: R4 cycle
-				* *Sun.* <@810059372066897950>: R4 cycle
+				
+				In addition, please choose the train conductors for next week.
+				
+				* **Mon.** <@334730033132339200>: R3 cycle (round 2)
+				* **Tue.** <@548515919333163023>: R3 cycle (round 2)
+				* **Wed.** <@157903563803066368>: R3 cycle (round 2)
+				* **Thu.** <@413827079688421376>: R4 cycle
+				* **Fri.** <@572154754675900434>: R4 cycle
+				* **Sat.** <@568776713455271946>: R4 cycle
+				* **Sun.** <@810059372066897950>: R4 cycle
 				
 				Link: [Train conductor.xlsb](https://docs.google.com/spreadsheets/d/1eyDVzal1BUNez5Ffo4cT6wvQJrbKiJI1AdxTiH2VowQ/edit?gid=1854922681#gid=1854922681&range=A65https://docs.google.com/spreadsheets/d/1eyDVzal1BUNez5Ffo4cT6wvQJrbKiJI1AdxTiH2VowQ/edit?gid=1854922681#gid=1854922681&range=A65)""");
 	}

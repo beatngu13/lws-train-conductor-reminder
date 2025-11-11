@@ -118,11 +118,15 @@ public class Reminder {
 
 	// TODO Make public and add tests.
 	private String createDailyMessage(Cycle cycle, TrainConductor trainConductor) {
-		String userString = trainConductor.hasDiscordAccount()
-				? "<@" + trainConductor.discordUserId() + ">"
-				: trainConductor.lwsUsername() + " (has no Discord account)";
+		String userString = getUserString(trainConductor);
 		String verb = cycle == Cycle.R4 ? "is" : "chooses";
 		return String.format("%s: %s %s today's train conductor.", cycle, userString, verb);
+	}
+
+	private static String getUserString(TrainConductor trainConductor) {
+		return trainConductor.hasDiscordAccount()
+				? "<@" + trainConductor.discordUserId() + ">"
+				: trainConductor.lwsUsername() + " (has no Discord account)";
 	}
 
 	public String createWeeklyMessage(LocalDateTime today) {
@@ -138,9 +142,10 @@ public class Reminder {
 			var trainConductor = determineTrainConductor(currentDay);
 			var cycle = determineCycle(currentDay);
 			messageBuffer
+					.append("* *")
 					.append(currentDayDisplayName)
-					.append(". ")
-					.append(trainConductor.lwsUsername())
+					.append(".* ")
+					.append(getUserString(trainConductor))
 					.append(": ")
 					.append(cycle)
 					.append("\\n");

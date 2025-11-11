@@ -7,6 +7,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse.BodyHandlers;
+import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -66,19 +67,19 @@ public class Reminder {
 		LocalDateTime today = reminder.getToday();
 		var trainConductor = reminder.determineTrainConductor(today);
 		var cycle = reminder.determineCycle(today);
-		var dailyMessage = reminder.createDailyMessage(cycle, trainConductor);
 
+		var dailyMessage = reminder.createDailyMessage(cycle, trainConductor);
 		System.out.println(dailyMessage);
+
+		var weeklyMessage = reminder.createWeeklyMessage(today);
+		System.out.println(weeklyMessage);
 
 		if (isDryRun(args)) {
 			return;
 		}
 
 		reminder.postOnDiscord(dailyMessage);
-
-		// TODO Add proper condition.
-		if (true) {
-			String weeklyMessage = reminder.createWeeklyMessage(today);
+		if (today.getDayOfWeek() == DayOfWeek.WEDNESDAY || today.getDayOfWeek() == DayOfWeek.SATURDAY) {
 			reminder.postOnDiscord(weeklyMessage);
 		}
 	}
@@ -135,7 +136,7 @@ public class Reminder {
 		var nextMonday = today.plusDays(daysUntilNextMonday);
 		StringBuffer messageBuffer = new StringBuffer();
 
-		messageBuffer.append("\\n\\nIn addition, please choose the train conductors for next week.\\n\\n");
+		messageBuffer.append("In addition, please choose the train conductors for *next week*.\\n\\n");
 		for (int i = 0; i < 7; i++) {
 			var currentDay = nextMonday.plusDays(i);
 			var currentDayDisplayName = currentDay.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.ENGLISH);

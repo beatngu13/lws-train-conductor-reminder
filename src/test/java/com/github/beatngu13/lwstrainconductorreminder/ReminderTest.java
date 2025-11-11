@@ -196,9 +196,7 @@ class ReminderTest {
 
 		var weeklyMessageUnescaped = weeklyMessage.replaceAll("\\\\n", "\n");
 		assertThat(weeklyMessageUnescaped).isEqualTo("""
-				
-				
-				In addition, please choose the train conductors for next week.
+				In addition, please choose the train conductors for *next week*.
 				
 				* **Mon.** <@334730033132339200>: R3 cycle (round 2)
 				* **Tue.** <@548515919333163023>: R3 cycle (round 2)

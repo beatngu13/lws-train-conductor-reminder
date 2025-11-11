@@ -10,7 +10,9 @@ import java.net.http.HttpResponse.BodyHandlers;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.TextStyle;
 import java.util.List;
+import java.util.Locale;
 
 public class Reminder {
 
@@ -31,9 +33,9 @@ public class Reminder {
 		@Override
 		public String toString() {
 			return switch (this) {
-				case R4 -> "R4";
-				case R3_W1 -> "R3 (week 1)";
-				case R3_W2 -> "R3 (week 2)";
+				case R4 -> "R4 cycle";
+				case R3_W1 -> "R3 cycle (round 1)";
+				case R3_W2 -> "R3 cycle (round 2)";
 			};
 		}
 
@@ -64,11 +66,21 @@ public class Reminder {
 		LocalDateTime today = reminder.getToday();
 		var trainConductor = reminder.determineTrainConductor(today);
 		var cycle = reminder.determineCycle(today);
-		System.out.println(reminder.createMessage(cycle, trainConductor.lwsUsername()));
+		var dailyMessage = reminder.createDailyMessage(cycle, trainConductor);
+
+		System.out.println(dailyMessage);
+
 		if (isDryRun(args)) {
 			return;
 		}
-		reminder.postOnDiscord(trainConductor, cycle);
+
+		reminder.postOnDiscord(dailyMessage);
+
+		// TODO Add proper condition.
+		if (true) {
+			String weeklyMessage = reminder.createWeeklyMessage(today);
+			reminder.postOnDiscord(weeklyMessage);
+		}
 	}
 
 	private static boolean isDryRun(String[] args) {
@@ -104,9 +116,43 @@ public class Reminder {
 		return Math.toIntExact(Duration.between(REFERENCE_DATE, today).toDays()) + OFFSET;
 	}
 
-	public void postOnDiscord(TrainConductor trainConductor, Cycle cycle) {
+	// TODO Make public and add tests.
+	private String createDailyMessage(Cycle cycle, TrainConductor trainConductor) {
+		String userString = trainConductor.hasDiscordAccount()
+				? "<@" + trainConductor.discordUserId() + ">"
+				: trainConductor.lwsUsername() + " (has no Discord account)";
+		String verb = cycle == Cycle.R4 ? "is" : "chooses";
+		return String.format("%s: %s %s today's train conductor.", cycle, userString, verb);
+	}
+
+	public String createWeeklyMessage(LocalDateTime today) {
+		int dayOfWeek = today.getDayOfWeek().getValue();
+		int daysUntilNextMonday = (8 - dayOfWeek) % 7;
+		var nextMonday = today.plusDays(daysUntilNextMonday);
+		StringBuffer messageBuffer = new StringBuffer();
+
+		messageBuffer.append("Please pick your train conductor for next week.\n\n");
+		for (int i = 0; i < 7; i++) {
+			var currentDay = nextMonday.plusDays(i);
+			var currentDayDisplayName = currentDay.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
+			var trainConductor = determineTrainConductor(currentDay);
+			var cycle = determineCycle(currentDay);
+			messageBuffer
+					.append(currentDayDisplayName)
+					.append(". ")
+					.append(trainConductor.lwsUsername())
+					.append(": ")
+					.append(cycle)
+					.append("\n");
+		}
+		messageBuffer.append("\nLink: [Train conductor.xlsb](https://docs.google.com/spreadsheets/d/1eyDVzal1BUNez5Ffo4cT6wvQJrbKiJI1AdxTiH2VowQ/edit?gid=1854922681#gid=1854922681&range=A65https://docs.google.com/spreadsheets/d/1eyDVzal1BUNez5Ffo4cT6wvQJrbKiJI1AdxTiH2VowQ/edit?gid=1854922681#gid=1854922681&range=A65)");
+
+		return messageBuffer.toString();
+	}
+
+	public void postOnDiscord(String message) {
 		try (HttpClient client = HttpClient.newHttpClient()) {
-			var requestBody = createRequestBody(trainConductor, cycle);
+			var requestBody = createRequestBody(message);
 			var httpRequest = createHttpRequest(requestBody);
 			System.out.println("Posting on discord...");
 			var httpResponse = client.send(httpRequest, BodyHandlers.ofString());
@@ -121,16 +167,8 @@ public class Reminder {
 		}
 	}
 
-	private String createMessage(Cycle cycle, String userString) {
-		String verb = cycle == Cycle.R4 ? "is" : "chooses";
-		return String.format("%s cycle: %s %s today's train conductor.", cycle, userString, verb);
-	}
-
-	private String createRequestBody(TrainConductor trainConductor, Cycle cycle) {
-		String userString = trainConductor.hasDiscordAccount()
-				? "<@" + trainConductor.discordUserId() + ">"
-				: trainConductor.lwsUsername() + " (has no Discord account)";
-		return "{\"content\": \"" + createMessage(cycle, userString) + "\"}";
+	private String createRequestBody(String message) {
+		return "{\"content\": \"" + message + "\"}";
 	}
 
 	private HttpRequest createHttpRequest(String requestBody) {

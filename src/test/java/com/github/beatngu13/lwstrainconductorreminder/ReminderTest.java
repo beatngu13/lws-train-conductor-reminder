@@ -188,6 +188,26 @@ class ReminderTest {
 		);
 	}
 
+	@Test
+	void test() {
+		var cut = new Reminder();
+
+		var weeklyMessage = cut.createWeeklyMessage(LocalDateTime.of(2025, 11, 11, 3, 0));
+
+		assertThat(weeklyMessage).isEqualTo("""
+				Please pick your train conductor for next week.
+				
+				Mon. WretčhedEgg: R3 cycle (round 2)
+				Tue. Killiz: R3 cycle (round 2)
+				Wed. Sharky1972: R3 cycle (round 2)
+				Thu. Nervengift: R4 cycle
+				Fri. Emeral Four: R4 cycle
+				Sat. Dieser eine Lauch: R4 cycle
+				Sun. Amboss1919: R4 cycle
+				
+				Link: [Train conductor.xlsb](https://docs.google.com/spreadsheets/d/1eyDVzal1BUNez5Ffo4cT6wvQJrbKiJI1AdxTiH2VowQ/edit?gid=1854922681#gid=1854922681&range=A65https://docs.google.com/spreadsheets/d/1eyDVzal1BUNez5Ffo4cT6wvQJrbKiJI1AdxTiH2VowQ/edit?gid=1854922681#gid=1854922681&range=A65)""");
+	}
+
 	@Disabled
 	@Test
 	void smokeTest() {

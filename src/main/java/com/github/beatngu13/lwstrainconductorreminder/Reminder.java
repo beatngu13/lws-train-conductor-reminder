@@ -89,7 +89,7 @@ public class Reminder {
 		var nextMonday = today.plusDays(daysUntilNextMonday);
 		var stringBuilder = new StringBuilder();
 
-		stringBuilder.append("In addition, please choose the train conductors for *next week*.\\n\\n");
+		stringBuilder.append("Please choose the train conductors for *next week*.\\n\\n");
 		for (int i = 0; i < 7; i++) {
 			var currentDay = nextMonday.plusDays(i);
 			var currentDayDisplayName = currentDay.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
@@ -104,7 +104,7 @@ public class Reminder {
 					.append(cycle)
 					.append("\\n");
 		}
-		stringBuilder.append("\\nLink: [Train conductor.xlsb](https://docs.google.com/spreadsheets/d/1eyDVzal1BUNez5Ffo4cT6wvQJrbKiJI1AdxTiH2VowQ/edit?gid=1854922681#gid=1854922681&range=A65https://docs.google.com/spreadsheets/d/1eyDVzal1BUNez5Ffo4cT6wvQJrbKiJI1AdxTiH2VowQ/edit?gid=1854922681#gid=1854922681&range=A65)");
+		stringBuilder.append("\\nGo to [Train conductor.xlsb](https://docs.google.com/spreadsheets/d/1eyDVzal1BUNez5Ffo4cT6wvQJrbKiJI1AdxTiH2VowQ/edit?gid=1854922681#gid=1854922681&range=A65https://docs.google.com/spreadsheets/d/1eyDVzal1BUNez5Ffo4cT6wvQJrbKiJI1AdxTiH2VowQ/edit?gid=1854922681#gid=1854922681&range=A65)");
 
 		return stringBuilder.toString();
 	}

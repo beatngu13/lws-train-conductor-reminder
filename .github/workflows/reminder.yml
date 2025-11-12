@@ -1,4 +1,4 @@
-name: Remind today's train conductor
+name: Remind train conductors
 
 on:
   workflow_dispatch:
@@ -18,7 +18,7 @@ on:
         default: officers
 
   schedule:
-    - cron: "5 2 * * *"
+    - cron: "15 2 * * 3,6"
 
 jobs:
   reminder:

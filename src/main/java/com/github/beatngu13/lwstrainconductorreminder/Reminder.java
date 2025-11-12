@@ -7,7 +7,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse.BodyHandlers;
-import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -64,24 +63,12 @@ public class Reminder {
 
 	public static void main(String[] args) {
 		var reminder = new Reminder();
-		LocalDateTime today = reminder.getToday();
-		var trainConductor = reminder.determineTrainConductor(today);
-		var cycle = reminder.determineCycle(today);
-
-		var dailyMessage = reminder.createDailyMessage(cycle, trainConductor);
-		System.out.println(dailyMessage);
-
-		var weeklyMessage = reminder.createWeeklyMessage(today);
+		var weeklyMessage = reminder.createWeeklyMessage(reminder.getToday());
 		System.out.println(weeklyMessage);
-
 		if (isDryRun(args)) {
 			return;
 		}
-
-		reminder.postOnDiscord(dailyMessage);
-		if (today.getDayOfWeek() == DayOfWeek.WEDNESDAY || today.getDayOfWeek() == DayOfWeek.SATURDAY) {
-			reminder.postOnDiscord(weeklyMessage);
-		}
+		reminder.postOnDiscord(weeklyMessage);
 	}
 
 	private static boolean isDryRun(String[] args) {
@@ -115,13 +102,6 @@ public class Reminder {
 
 	private int getDaysSinceReferenceDate(LocalDateTime today) {
 		return Math.toIntExact(Duration.between(REFERENCE_DATE, today).toDays()) + OFFSET;
-	}
-
-	// TODO Make public and add tests.
-	private String createDailyMessage(Cycle cycle, TrainConductor trainConductor) {
-		String userString = getUserString(trainConductor);
-		String verb = cycle == Cycle.R4 ? "is" : "chooses";
-		return String.format("%s: %s %s today's train conductor.", cycle, userString, verb);
 	}
 
 	private static String getUserString(TrainConductor trainConductor) {

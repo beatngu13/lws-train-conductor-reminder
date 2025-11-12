@@ -189,7 +189,7 @@ class ReminderTest {
 	}
 
 	@Test
-	void test() {
+	void createWeeklyMessage() {
 		var cut = new Reminder();
 
 		var weeklyMessage = cut.createWeeklyMessage(LocalDateTime.of(2025, 11, 11, 3, 0));

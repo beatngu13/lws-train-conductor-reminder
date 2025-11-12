@@ -83,6 +83,32 @@ public class Reminder {
 		return LocalDateTime.now(europeBerlin);
 	}
 
+	public String createWeeklyMessage(LocalDateTime today) {
+		int dayOfWeek = today.getDayOfWeek().getValue();
+		int daysUntilNextMonday = (8 - dayOfWeek) % 7;
+		var nextMonday = today.plusDays(daysUntilNextMonday);
+		var stringBuilder = new StringBuilder();
+
+		stringBuilder.append("In addition, please choose the train conductors for *next week*.\\n\\n");
+		for (int i = 0; i < 7; i++) {
+			var currentDay = nextMonday.plusDays(i);
+			var currentDayDisplayName = currentDay.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
+			var trainConductor = determineTrainConductor(currentDay);
+			var cycle = determineCycle(currentDay);
+			stringBuilder
+					.append("* **")
+					.append(currentDayDisplayName)
+					.append(".** ")
+					.append(getUserString(trainConductor))
+					.append(": ")
+					.append(cycle)
+					.append("\\n");
+		}
+		stringBuilder.append("\\nLink: [Train conductor.xlsb](https://docs.google.com/spreadsheets/d/1eyDVzal1BUNez5Ffo4cT6wvQJrbKiJI1AdxTiH2VowQ/edit?gid=1854922681#gid=1854922681&range=A65https://docs.google.com/spreadsheets/d/1eyDVzal1BUNez5Ffo4cT6wvQJrbKiJI1AdxTiH2VowQ/edit?gid=1854922681#gid=1854922681&range=A65)");
+
+		return stringBuilder.toString();
+	}
+
 	public TrainConductor determineTrainConductor(LocalDateTime today) {
 		int index = getDaysSinceReferenceDate(today) % TRAIN_CONDUCTORS.size();
 		return TRAIN_CONDUCTORS.get(index);
@@ -108,32 +134,6 @@ public class Reminder {
 		return trainConductor.hasDiscordAccount()
 				? "<@" + trainConductor.discordUserId() + ">"
 				: trainConductor.lwsUsername() + " (has no Discord account)";
-	}
-
-	public String createWeeklyMessage(LocalDateTime today) {
-		int dayOfWeek = today.getDayOfWeek().getValue();
-		int daysUntilNextMonday = (8 - dayOfWeek) % 7;
-		var nextMonday = today.plusDays(daysUntilNextMonday);
-		StringBuffer messageBuffer = new StringBuffer();
-
-		messageBuffer.append("In addition, please choose the train conductors for *next week*.\\n\\n");
-		for (int i = 0; i < 7; i++) {
-			var currentDay = nextMonday.plusDays(i);
-			var currentDayDisplayName = currentDay.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
-			var trainConductor = determineTrainConductor(currentDay);
-			var cycle = determineCycle(currentDay);
-			messageBuffer
-					.append("* **")
-					.append(currentDayDisplayName)
-					.append(".** ")
-					.append(getUserString(trainConductor))
-					.append(": ")
-					.append(cycle)
-					.append("\\n");
-		}
-		messageBuffer.append("\\nLink: [Train conductor.xlsb](https://docs.google.com/spreadsheets/d/1eyDVzal1BUNez5Ffo4cT6wvQJrbKiJI1AdxTiH2VowQ/edit?gid=1854922681#gid=1854922681&range=A65https://docs.google.com/spreadsheets/d/1eyDVzal1BUNez5Ffo4cT6wvQJrbKiJI1AdxTiH2VowQ/edit?gid=1854922681#gid=1854922681&range=A65)");
-
-		return messageBuffer.toString();
 	}
 
 	public void postOnDiscord(String message) {

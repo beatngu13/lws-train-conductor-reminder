@@ -42,21 +42,17 @@ public class Reminder {
 	}
 
 	private static final List<TrainConductor> TRAIN_CONDUCTORS = List.of(
-			new TrainConductor("413827079688421376", "Nervengift"),
-			new TrainConductor("572154754675900434", "Emeral Four"),
-			new TrainConductor("568776713455271946", "Dieser eine Lauch"),
-			new TrainConductor("810059372066897950", "Amboss1919"),
-			new TrainConductor("284646412233211906", "beatngu13"),
-			new TrainConductor("1335254915819376641", "Xaver 123"),
 			new TrainConductor("242602233475104768", "Sunny"),
-			new TrainConductor("207834501651496961", "Pavwla"),
+			new TrainConductor("810059372066897950", "Amboss1919"),
+			new TrainConductor("1335254915819376641", "Xaver 123"),
 			new TrainConductor("334730033132339200", "WretčhedEgg"),
 			new TrainConductor("548515919333163023", "Killiz"),
-			new TrainConductor("157903563803066368", "Sharky1972")
+			new TrainConductor("157903563803066368", "Sharky1972"),
+			new TrainConductor("572154754675900434", "Emeral Four")
 	);
 
-	private static final LocalDateTime REFERENCE_DATE = LocalDateTime.of(2025, 2, 27, 3, 0);
-	private static final int OFFSET = -2;
+	private static final LocalDateTime REFERENCE_DATE = LocalDateTime.of(2025, 12, 29, 3, 0);
+	private static final int OFFSET = 0;
 	private static final String APP_TOKEN = System.getenv("APP_TOKEN");
 	private static final String CHANNEL_ID = System.getenv("CHANNEL_ID");
 	private static final String CHANNEL_URI = "https://discord.com/api/v10/channels/" + CHANNEL_ID + "/messages";
@@ -89,7 +85,7 @@ public class Reminder {
 		var nextMonday = today.plusDays(daysUntilNextMonday);
 		var stringBuilder = new StringBuilder();
 
-		stringBuilder.append("Please choose the train conductors for *next week*.\\n\\n");
+		stringBuilder.append("Please choose the train conductors and VIPs for *next week*.\\n\\n");
 		for (int i = 0; i < 7; i++) {
 			var currentDay = nextMonday.plusDays(i);
 			var currentDayDisplayName = currentDay.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
@@ -104,7 +100,7 @@ public class Reminder {
 					.append(cycle)
 					.append("\\n");
 		}
-		stringBuilder.append("\\nGo to [Train conductor.xlsb](https://docs.google.com/spreadsheets/d/1eyDVzal1BUNez5Ffo4cT6wvQJrbKiJI1AdxTiH2VowQ/edit?gid=1854922681#gid=1854922681&range=A65https://docs.google.com/spreadsheets/d/1eyDVzal1BUNez5Ffo4cT6wvQJrbKiJI1AdxTiH2VowQ/edit?gid=1854922681#gid=1854922681&range=A65)");
+		stringBuilder.append("\\nLink: [Train conductor.xlsb](https://docs.google.com/spreadsheets/d/1eyDVzal1BUNez5Ffo4cT6wvQJrbKiJI1AdxTiH2VowQ/edit?gid=1854922681#gid=1854922681&range=A65https://docs.google.com/spreadsheets/d/1eyDVzal1BUNez5Ffo4cT6wvQJrbKiJI1AdxTiH2VowQ/edit?gid=1854922681#gid=1854922681&range=A65)");
 
 		return stringBuilder.toString();
 	}

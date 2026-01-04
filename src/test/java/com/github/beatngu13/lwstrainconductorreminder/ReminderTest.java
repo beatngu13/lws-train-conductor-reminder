@@ -56,6 +56,18 @@ class ReminderTest {
 				),
 				Arguments.of(
 						LocalDateTime.of(2026, 1, 12, 3, 0),
+						"Jimbô"
+				),
+				Arguments.of(
+						LocalDateTime.of(2026, 1, 13, 3, 0),
+						"Ohob"
+				),
+				Arguments.of(
+						LocalDateTime.of(2026, 1, 14, 3, 0),
+						"topnut"
+				),
+				Arguments.of(
+						LocalDateTime.of(2026, 1, 15, 3, 0),
 						"Sunny"
 				)
 		);
@@ -103,6 +115,18 @@ class ReminderTest {
 				),
 				Arguments.of(
 						LocalDateTime.of(2026, 1, 12, 3, 0),
+						Cycle.R3_W1
+				),
+				Arguments.of(
+						LocalDateTime.of(2026, 1, 13, 3, 0),
+						Cycle.R3_W1
+				),
+				Arguments.of(
+						LocalDateTime.of(2026, 1, 14, 3, 0),
+						Cycle.R3_W1
+				),
+				Arguments.of(
+						LocalDateTime.of(2026, 1, 15, 3, 0),
 						Cycle.R3_W2
 				)
 		);

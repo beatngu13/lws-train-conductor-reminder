@@ -48,11 +48,14 @@ public class Reminder {
 			new TrainConductor("334730033132339200", "WretčhedEgg"),
 			new TrainConductor("548515919333163023", "Killiz"),
 			new TrainConductor("157903563803066368", "Sharky1972"),
-			new TrainConductor("572154754675900434", "Emeral Four")
+			new TrainConductor("572154754675900434", "Emeral Four"),
+			new TrainConductor("342409370229014541", "Jimbô"),
+			new TrainConductor("1296197018854883419", "Ohob"),
+			new TrainConductor("1278403662556958782", "topnut")
 	);
 
-	private static final LocalDateTime REFERENCE_DATE = LocalDateTime.of(2025, 12, 29, 3, 0);
-	private static final int OFFSET = 0;
+	private static final LocalDateTime REFERENCE_DATE = LocalDateTime.of(2026, 1, 4, 3, 0);
+	private static final int OFFSET = -1;
 	private static final String APP_TOKEN = System.getenv("APP_TOKEN");
 	private static final String CHANNEL_ID = System.getenv("CHANNEL_ID");
 	private static final String CHANNEL_URI = "https://discord.com/api/v10/channels/" + CHANNEL_ID + "/messages";
@@ -114,9 +117,9 @@ public class Reminder {
 		int quotient = getDaysSinceReferenceDate(today) / TRAIN_CONDUCTORS.size();
 		int cycle = quotient % 3;
 		return switch (cycle) {
-			case 0 -> Cycle.R4;
-			case 1 -> Cycle.R3_W1;
-			case 2 -> Cycle.R3_W2;
+			case 0 -> Cycle.R3_W1;
+			case 1 -> Cycle.R3_W2;
+			case 2 -> Cycle.R4;
 			default ->
 					throw new IllegalStateException("Unexpected cycle: " + cycle + " (0 = R4, 1 = R3_W1, 2 = R3_W2)");
 		};

@@ -44,17 +44,18 @@ public class Reminder {
 	private static final List<TrainConductor> TRAIN_CONDUCTORS = List.of(
 			new TrainConductor("242602233475104768", "Sunny"),
 			new TrainConductor("810059372066897950", "Amboss1919"),
-			new TrainConductor("1335254915819376641", "Xaver 123"),
-			new TrainConductor("334730033132339200", "WretčhedEgg"),
-			new TrainConductor("548515919333163023", "Killiz"),
-			new TrainConductor("157903563803066368", "Sharky1972"),
+			new TrainConductor("1302749583931084870", "Bloodångel"),
 			new TrainConductor("572154754675900434", "Emeral Four"),
 			new TrainConductor("342409370229014541", "Jimbô"),
+			new TrainConductor("548515919333163023", "Killiz"),
 			new TrainConductor("1296197018854883419", "Ohob"),
-			new TrainConductor("1278403662556958782", "topnut")
+			new TrainConductor("157903563803066368", "Sharky1972"),
+			new TrainConductor("1278403662556958782", "topnut"),
+			new TrainConductor("334730033132339200", "WretčhedEgg"),
+			new TrainConductor("1335254915819376641", "Xaver 123")
 	);
 
-	private static final LocalDateTime REFERENCE_DATE = LocalDateTime.of(2026, 1, 4, 3, 0);
+	private static final LocalDateTime REFERENCE_DATE = LocalDateTime.of(2026, 1, 11, 3, 0);
 	private static final int OFFSET = -1;
 	private static final String APP_TOKEN = System.getenv("APP_TOKEN");
 	private static final String CHANNEL_ID = System.getenv("CHANNEL_ID");
@@ -117,9 +118,9 @@ public class Reminder {
 		int quotient = getDaysSinceReferenceDate(today) / TRAIN_CONDUCTORS.size();
 		int cycle = quotient % 3;
 		return switch (cycle) {
-			case 0 -> Cycle.R3_W1;
-			case 1 -> Cycle.R3_W2;
-			case 2 -> Cycle.R4;
+			case 0 -> Cycle.R3_W2;
+			case 1 -> Cycle.R4;
+			case 2 -> Cycle.R3_W1;
 			default ->
 					throw new IllegalStateException("Unexpected cycle: " + cycle + " (0 = R4, 1 = R3_W1, 2 = R3_W2)");
 		};

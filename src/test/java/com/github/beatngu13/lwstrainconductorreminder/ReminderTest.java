@@ -27,47 +27,51 @@ class ReminderTest {
 	static Stream<Arguments> determineTrainConductor() {
 		return Stream.of(
 				Arguments.of(
-						LocalDateTime.of(2026, 1, 5, 3, 0),
+						LocalDateTime.of(2026, 1, 12, 3, 0),
 						"Sunny"
 				),
 				Arguments.of(
-						LocalDateTime.of(2026, 1, 6, 3, 0),
+						LocalDateTime.of(2026, 1, 13, 3, 0),
 						"Amboss1919"
 				),
 				Arguments.of(
-						LocalDateTime.of(2026, 1, 7, 3, 0),
-						"Xaver 123"
-				),
-				Arguments.of(
-						LocalDateTime.of(2026, 1, 8, 3, 0),
-						"WretčhedEgg"
-				),
-				Arguments.of(
-						LocalDateTime.of(2026, 1, 9, 3, 0),
-						"Killiz"
-				),
-				Arguments.of(
-						LocalDateTime.of(2026, 1, 10, 3, 0),
-						"Sharky1972"
-				),
-				Arguments.of(
-						LocalDateTime.of(2026, 1, 11, 3, 0),
-						"Emeral Four"
-				),
-				Arguments.of(
-						LocalDateTime.of(2026, 1, 12, 3, 0),
-						"Jimbô"
-				),
-				Arguments.of(
-						LocalDateTime.of(2026, 1, 13, 3, 0),
-						"Ohob"
-				),
-				Arguments.of(
 						LocalDateTime.of(2026, 1, 14, 3, 0),
-						"topnut"
+						"Bloodångel"
 				),
 				Arguments.of(
 						LocalDateTime.of(2026, 1, 15, 3, 0),
+						"Emeral Four"
+				),
+				Arguments.of(
+						LocalDateTime.of(2026, 1, 16, 3, 0),
+						"Jimbô"
+				),
+				Arguments.of(
+						LocalDateTime.of(2026, 1, 17, 3, 0),
+						"Killiz"
+				),
+				Arguments.of(
+						LocalDateTime.of(2026, 1, 18, 3, 0),
+						"Ohob"
+				),
+				Arguments.of(
+						LocalDateTime.of(2026, 1, 19, 3, 0),
+						"Sharky1972"
+				),
+				Arguments.of(
+						LocalDateTime.of(2026, 1, 20, 3, 0),
+						"topnut"
+				),
+				Arguments.of(
+						LocalDateTime.of(2026, 1, 21, 3, 0),
+						"WretčhedEgg"
+				),
+				Arguments.of(
+						LocalDateTime.of(2026, 1, 22, 3, 0),
+						"Xaver 123"
+				),
+				Arguments.of(
+						LocalDateTime.of(2026, 1, 23, 3, 0),
 						"Sunny"
 				)
 		);
@@ -86,48 +90,52 @@ class ReminderTest {
 	static Stream<Arguments> determineCycle() {
 		return Stream.of(
 				Arguments.of(
-						LocalDateTime.of(2026, 1, 5, 3, 0),
-						Cycle.R3_W1
-				),
-				Arguments.of(
-						LocalDateTime.of(2026, 1, 6, 3, 0),
-						Cycle.R3_W1
-				),
-				Arguments.of(
-						LocalDateTime.of(2026, 1, 7, 3, 0),
-						Cycle.R3_W1
-				),
-				Arguments.of(
-						LocalDateTime.of(2026, 1, 8, 3, 0),
-						Cycle.R3_W1
-				),
-				Arguments.of(
-						LocalDateTime.of(2026, 1, 9, 3, 0),
-						Cycle.R3_W1
-				),
-				Arguments.of(
-						LocalDateTime.of(2026, 1, 10, 3, 0),
-						Cycle.R3_W1
-				),
-				Arguments.of(
-						LocalDateTime.of(2026, 1, 11, 3, 0),
-						Cycle.R3_W1
-				),
-				Arguments.of(
 						LocalDateTime.of(2026, 1, 12, 3, 0),
-						Cycle.R3_W1
+						Cycle.R3_W2
 				),
 				Arguments.of(
 						LocalDateTime.of(2026, 1, 13, 3, 0),
-						Cycle.R3_W1
+						Cycle.R3_W2
 				),
 				Arguments.of(
 						LocalDateTime.of(2026, 1, 14, 3, 0),
-						Cycle.R3_W1
+						Cycle.R3_W2
 				),
 				Arguments.of(
 						LocalDateTime.of(2026, 1, 15, 3, 0),
 						Cycle.R3_W2
+				),
+				Arguments.of(
+						LocalDateTime.of(2026, 1, 16, 3, 0),
+						Cycle.R3_W2
+				),
+				Arguments.of(
+						LocalDateTime.of(2026, 1, 17, 3, 0),
+						Cycle.R3_W2
+				),
+				Arguments.of(
+						LocalDateTime.of(2026, 1, 18, 3, 0),
+						Cycle.R3_W2
+				),
+				Arguments.of(
+						LocalDateTime.of(2026, 1, 19, 3, 0),
+						Cycle.R3_W2
+				),
+				Arguments.of(
+						LocalDateTime.of(2026, 1, 20, 3, 0),
+						Cycle.R3_W2
+				),
+				Arguments.of(
+						LocalDateTime.of(2026, 1, 21, 3, 0),
+						Cycle.R3_W2
+				),
+				Arguments.of(
+						LocalDateTime.of(2026, 1, 22, 3, 0),
+						Cycle.R3_W2
+				),
+				Arguments.of(
+						LocalDateTime.of(2026, 1, 23, 3, 0),
+						Cycle.R4
 				)
 		);
 	}
@@ -136,19 +144,19 @@ class ReminderTest {
 	void createWeeklyMessage() {
 		var cut = new Reminder();
 
-		var weeklyMessage = cut.createWeeklyMessage(LocalDateTime.of(2026, 1, 5, 3, 0));
+		var weeklyMessage = cut.createWeeklyMessage(LocalDateTime.of(2026, 1, 14, 3, 0));
 
 		var weeklyMessageUnescaped = weeklyMessage.replaceAll("\\\\n", "\n");
 		assertThat(weeklyMessageUnescaped).isEqualTo("""
 				Please choose the train conductors and VIPs for *next week*.
 				
-				* **Mon.** <@242602233475104768>: R3 cycle (round 1)
-				* **Tue.** <@810059372066897950>: R3 cycle (round 1)
-				* **Wed.** <@1335254915819376641>: R3 cycle (round 1)
-				* **Thu.** <@334730033132339200>: R3 cycle (round 1)
-				* **Fri.** <@548515919333163023>: R3 cycle (round 1)
-				* **Sat.** <@157903563803066368>: R3 cycle (round 1)
-				* **Sun.** <@572154754675900434>: R3 cycle (round 1)
+				* **Mon.** <@157903563803066368>: R3 cycle (round 2)
+				* **Tue.** <@1278403662556958782>: R3 cycle (round 2)
+				* **Wed.** <@334730033132339200>: R3 cycle (round 2)
+				* **Thu.** <@1335254915819376641>: R3 cycle (round 2)
+				* **Fri.** <@242602233475104768>: R4 cycle
+				* **Sat.** <@810059372066897950>: R4 cycle
+				* **Sun.** <@1302749583931084870>: R4 cycle
 				
 				Link: [Train conductor.xlsb](https://docs.google.com/spreadsheets/d/1eyDVzal1BUNez5Ffo4cT6wvQJrbKiJI1AdxTiH2VowQ/edit?gid=1854922681#gid=1854922681&range=A65https://docs.google.com/spreadsheets/d/1eyDVzal1BUNez5Ffo4cT6wvQJrbKiJI1AdxTiH2VowQ/edit?gid=1854922681#gid=1854922681&range=A65)""");
 	}
